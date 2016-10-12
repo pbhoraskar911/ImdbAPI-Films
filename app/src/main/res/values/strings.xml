@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">IMDB</string>
+
+    <string name="title_activity_launcher">LauncherActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="appTitle">Imdb App</string>
+    <string name="view_details">View Details</string>
+    <string name="network_error">No Network Connection!!</string>
+    <string name="network_error_message">Please check Network Connection!!</string>
+    <string name="refresh">Refresh</string>
+    <string name="genre">Genre :</string>
+    <string name="director">Director :</string>
+    <string name="language">Language :</string>
+    <string name="logout">Logout</string>
+</resources>
