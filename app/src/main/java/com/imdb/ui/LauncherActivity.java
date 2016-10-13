@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 
-import com.imdb.MVP.moviesPage.MoviesListActivity;
 import com.imdb.R;
+import com.imdb.session.SessionManager;
+import com.imdb.ui.mvp.login.LoginActivity;
+import com.imdb.ui.mvp.moviespage.MoviesListActivity;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -22,16 +24,22 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launcher);
 
         View statusBarView = getWindow().getDecorView();
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT) {
-            statusBarView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN|View.SYSTEM_UI_FLAG_IMMERSIVE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            statusBarView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_IMMERSIVE);
         }
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 SessionManager sessionManager = new SessionManager(LauncherActivity.this);
-                sessionManager.checkLogin();
-//                startActivity(new Intent(LauncherActivity.this, MoviesListActivity.class));
+
+                if (sessionManager.checkLogin()) {
+                    startActivity(new Intent(LauncherActivity.this, MoviesListActivity.class));
+                }
+                else {
+                    startActivity(new Intent(LauncherActivity.this, LoginActivity.class));
+                }
                 finish();
             }
         }, SPLASH_TIME);

@@ -2,7 +2,7 @@ package com.imdb.di.module;
 
 import android.app.Application;
 
-import com.imdb.ui.SessionManager;
+import com.imdb.session.SessionManager;
 
 import javax.inject.Singleton;
 

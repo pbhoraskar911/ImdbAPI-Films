@@ -1,4 +1,4 @@
-package com.imdb.MVP.moviesPage.view;
+package com.imdb.ui.mvp;
 
 import android.content.Context;
 
@@ -8,6 +8,4 @@ import android.content.Context;
 public interface ViewInterface {
 
     Context getContext();
-    void showProgress();
-    void hideProgress();
 }

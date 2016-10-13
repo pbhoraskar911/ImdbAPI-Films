@@ -2,6 +2,7 @@ package com.imdb.di;
 
 import android.app.Application;
 
+//import com.imdb.di.component.DaggerNetworkComponent;
 import com.imdb.di.component.DaggerNetworkComponent;
 import com.imdb.di.component.NetworkComponent;
 import com.imdb.di.module.AppModule;

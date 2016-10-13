@@ -1,5 +1,6 @@
-package com.imdb.MVP.login;
+package com.imdb.ui.mvp.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +10,19 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.imdb.MVP.moviesPage.MoviesListActivity;
 import com.imdb.R;
-import com.imdb.ui.SessionManager;
+import com.imdb.di.ImdbApplication;
+import com.imdb.di.component.NetworkComponent;
+import com.imdb.ui.mvp.moviespage.MoviesListActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
-public class LoginActivity extends AppCompatActivity implements LoginViewInterface{
+public class LoginActivity extends AppCompatActivity implements LoginViewInterface {
 
     @BindView(R.id.username)
     EditText usernameEditText;
@@ -28,22 +33,32 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     @BindView(R.id.progress)
     ProgressBar progressBar;
 
-    SessionManager sessionManager;
-
-    LoginMVP loginMVPPresenter;
+    @Inject
+    LoginPresenter loginPresenter;
 
     String username, password;
-    public boolean loggedIn = false;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
+        getNetComponent().injectLauncher(this);
+        initialize();
+    }
 
-        loginMVPPresenter = new LoginMVPImpl(this);
+    private NetworkComponent getNetComponent() {
+        return ((ImdbApplication) getApplication()).getNetworkComponent();
+    }
 
-//        sessionManager = new SessionManager(this);
+    private void initialize() {
+        loginPresenter.attachView(this);
+    }
+
+    @Override
+    public Context getContext() {
+        return getBaseContext();
     }
 
     @OnClick(R.id.loginButton)
@@ -55,25 +70,14 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         username = usernameEditText.getText().toString();
         password = passwordEditText.getText().toString();
 
-        loginMVPPresenter.checkCredentialsValidity(username,password);
+        loginPresenter.checkCredentialsValidity(username, password);
     }
 
     @Override
     public void openImdbHome() {
-        Toast.makeText(this, "Login Success...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.loginSuccess, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, MoviesListActivity.class));
         finish();
-    }
-
-    @Override
-    public void setUsernameError() {
-        usernameEditText.setText("");
-
-    }
-
-    @Override
-    public void setPasswordError() {
-        passwordEditText.setText("");
     }
 
     @Override
@@ -88,14 +92,15 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
 
     @Override
     public void onCredentialsFailure() {
-        Toast.makeText(this, "username and/or password are incorrect!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.loginCredentialsFailure, Toast.LENGTH_SHORT).show();
         usernameEditText.setText("");
         passwordEditText.setText("");
     }
 
     @Override
-    protected void onDestroy() {
-        loginMVPPresenter.onDestroy();
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
+        unbinder.unbind();
+        loginPresenter.detachView();
     }
 }

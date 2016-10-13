@@ -17,8 +17,14 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            proguardFile 'proguard-app-rules.pro'
+            proguardFile 'proguard-dependency-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -58,4 +64,7 @@ dependencies {
     //Dagger2
     compile "com.google.dagger:dagger:$DAGGER2_VERSION"
     apt "com.google.dagger:dagger-compiler:$DAGGER2_VERSION"
+
+    // Quality
+    compile 'com.google.code.findbugs:annotations:3.0.0'
 }

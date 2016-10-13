@@ -1,4 +1,4 @@
-package com.imdb.MVP.moviesPage;
+package com.imdb.ui.mvp.moviespage;
 
 
 import android.content.DialogInterface;
@@ -16,13 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.imdb.MVP.moviesPage.presenter.MoviesPresenter;
-import com.imdb.MVP.moviesPage.view.MoviesView;
 import com.imdb.R;
 import com.imdb.di.ImdbApplication;
 import com.imdb.di.component.NetworkComponent;
 import com.imdb.model.Movie;
-import com.imdb.ui.SessionManager;
+import com.imdb.session.SessionManager;
 
 import java.util.ArrayList;
 
@@ -30,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import retrofit2.Retrofit;
 
 /**
@@ -38,7 +37,6 @@ import retrofit2.Retrofit;
 public class MoviesFragment extends Fragment implements MoviesView {
 
     private static final String TAG = MoviesFragment.class.getSimpleName();
-    //    public static final String BASE_URL = "http://api.myapifilms.com/";
     private static final String SAVE_MOVIES_STATE = "movies_state";
 
     @BindView(R.id.movie_recycler_view)
@@ -53,7 +51,7 @@ public class MoviesFragment extends Fragment implements MoviesView {
     private String access_token = "159ab6ca-37ea-4351-ba42-9ef903beacc3";
 
     ArrayList<Movie> listOfMovies = new ArrayList<>();
-    static boolean flag = false;
+    boolean flag = false;
 
     SessionManager sessionManager;
 
@@ -78,15 +76,14 @@ public class MoviesFragment extends Fragment implements MoviesView {
         setHasOptionsMenu(true);
 
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            if (bundle.containsKey(SAVE_MOVIES_STATE)) {
-                listOfMovies = bundle.getParcelableArrayList(SAVE_MOVIES_STATE);
-                return view;
-            }
+        if (bundle != null && bundle.containsKey(SAVE_MOVIES_STATE)) {
+            listOfMovies = bundle.getParcelableArrayList(SAVE_MOVIES_STATE);
+            return view;
         }
         return view;
     }
 
+    @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -94,7 +91,8 @@ public class MoviesFragment extends Fragment implements MoviesView {
         if (!listOfMovies.isEmpty()) {
             setUpRecyclerView(listOfMovies);
             flag = true;
-        } else {
+        }
+        else {
             listOfMovies = new ArrayList<>();
         }
 
@@ -102,10 +100,12 @@ public class MoviesFragment extends Fragment implements MoviesView {
             moviesPresenter = new MoviesPresenter(this, retrofit);
             if (moviesPresenter.isNetworkAvailable()) {
                 moviesPresenter.makeRetrofitCall();
-            } else {
+            }
+            else {
                 showErrorDialog();
             }
-        } else {
+        }
+        else {
             setUpRecyclerView(listOfMovies);
             progressBar.setVisibility(View.INVISIBLE);
         }
@@ -175,7 +175,6 @@ public class MoviesFragment extends Fragment implements MoviesView {
     @Override
     public void onPause() {
         super.onPause();
-        System.out.println(listOfMovies.size() + " ----- size of list");
         if (listOfMovies != null) {
             getArguments().putParcelableArrayList(SAVE_MOVIES_STATE, listOfMovies);
             flag = true;

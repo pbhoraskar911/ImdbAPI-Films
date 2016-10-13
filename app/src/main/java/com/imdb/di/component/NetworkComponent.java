@@ -2,7 +2,9 @@ package com.imdb.di.component;
 
 import com.imdb.di.module.AppModule;
 import com.imdb.di.module.NetworkModule;
-import com.imdb.MVP.moviesPage.MoviesFragment;
+import com.imdb.session.SessionManager;
+import com.imdb.ui.mvp.login.LoginActivity;
+import com.imdb.ui.mvp.moviespage.MoviesFragment;
 
 import javax.inject.Singleton;
 
@@ -16,6 +18,9 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetworkModule.class})
 public interface NetworkComponent {
 
+    SessionManager sessionManager();
+
     void inject(MoviesFragment moviesFragment);
 
+    void injectLauncher(LoginActivity loginActivity);
 }

@@ -1,15 +1,14 @@
-package com.imdb.MVP.moviesPage.presenter;
+package com.imdb.ui.mvp.moviespage;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.imdb.MVP.moviesPage.view.MoviesView;
 import com.imdb.model.ImdbResponse;
 import com.imdb.model.Movie;
 import com.imdb.retrofit.RetrofitInterface;
+import com.imdb.ui.mvp.Presenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,13 +38,10 @@ public class MoviesPresenter implements Presenter<MoviesView> {
         this.retrofit = retrofit;
     }
 
-    @Override
     public void makeRetrofitCall() {
         fetchMovieDetails();
-
     }
 
-    @Override
     public void fetchMovieDetails() {
         moviesView.showProgress();
 
@@ -82,7 +78,8 @@ public class MoviesPresenter implements Presenter<MoviesView> {
 
                     // setting the Recycler View using Recycler Adapter
                     moviesView.setUpRecyclerView(tempData);
-                } else {
+                }
+                else {
                     Log.e(getClass().getSimpleName() + " --- ", response.message());
                 }
                 flag = true;
@@ -92,10 +89,6 @@ public class MoviesPresenter implements Presenter<MoviesView> {
             @Override
             public void onFailure(Call<ImdbResponse> call, Throwable t) {
                 Log.e(getClass().getSimpleName(), "" + t.getMessage());
-
-                Toast.makeText(moviesView.getContext(), "in onFailure - retrofit..." , Toast.LENGTH_LONG).show();
-                System.out.println("Retrofit Failure - " + t.getMessage());
-
                 flag = false;
                 moviesView.hideProgress();
             }
@@ -107,11 +100,16 @@ public class MoviesPresenter implements Presenter<MoviesView> {
      *
      * @return
      */
-    @Override
     public boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager) moviesView.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) moviesView.getContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
+    }
+
+    @Override
+    public void attachView(MoviesView moviesView) {
+        this.moviesView = moviesView;
     }
 
     @Override

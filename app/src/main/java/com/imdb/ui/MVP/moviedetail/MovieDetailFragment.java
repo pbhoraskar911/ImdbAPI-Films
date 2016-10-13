@@ -1,4 +1,4 @@
-package com.imdb.ui;
+package com.imdb.ui.mvp.moviedetail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.imdb.R;
-import com.imdb.MVP.moviesPage.RecyclerAdapter;
+import com.imdb.ui.mvp.moviespage.RecyclerAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -31,17 +31,25 @@ public class MovieDetailFragment extends Fragment {
     String movieDirector;
     String movieLanguages;
 
-    @BindView(R.id.detail_movie_duration) TextView detailMovieDuration;
-    @BindView(R.id.detail_movie_rated) TextView detailMovieRated;
-    @BindView(R.id.detail_movie_genre) TextView detailMovieGenre;
-    @BindView(R.id.detail_movie_director) TextView detailMovieDirector;
-    @BindView(R.id.detail_movie_language) TextView detailMovieLanguage;
-    @BindView(R.id.detail_movie_plot) TextView detailMoviePlot;
-    @BindView(R.id.detail_movie_poster) ImageView detailMoviePoster;
+    @BindView(R.id.detail_movie_duration)
+    TextView detailMovieDuration;
+    @BindView(R.id.detail_movie_rated)
+    TextView detailMovieRated;
+    @BindView(R.id.detail_movie_genre)
+    TextView detailMovieGenre;
+    @BindView(R.id.detail_movie_director)
+    TextView detailMovieDirector;
+    @BindView(R.id.detail_movie_language)
+    TextView detailMovieLanguage;
+    @BindView(R.id.detail_movie_plot)
+    TextView detailMoviePlot;
+    @BindView(R.id.detail_movie_poster)
+    ImageView detailMoviePoster;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, view);
         setHasOptionsMenu(false);

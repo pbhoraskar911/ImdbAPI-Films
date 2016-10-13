@@ -1,8 +1,5 @@
 package com.imdb.di.module;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -25,29 +22,14 @@ public class NetworkModule {
         this.baseUrl = baseUrl;
     }
 
-//    @Provides
-//    @Singleton
-//    Gson provideGson(){
-//        GsonBuilder gsonBuilder = new GsonBuilder();
-//        return gsonBuilder.create();
-//    }
-//
-//    @Provides
-//    @Singleton
-//    OkHttpClient providesOkHttpClient(){
-//        return new OkHttpClient();
-//    }
-//
-
     @Provides
     @Singleton
-//    Retrofit provideRetrofitConnection(Gson gson, OkHttpClient okHttpClient){
-    Retrofit provideRetrofitConnection(){
+    Retrofit provideRetrofitConnection() {
 
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(new OkHttpClient())
                 .baseUrl(baseUrl)
                 .build();
-     }
+    }
 }

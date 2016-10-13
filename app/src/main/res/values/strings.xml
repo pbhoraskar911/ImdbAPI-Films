@@ -13,4 +13,8 @@
     <string name="director">Director :</string>
     <string name="language">Language :</string>
     <string name="logout">Logout</string>
+    <string name="usernameError">Invalid username!</string>
+    <string name="passwordError">Password Incorrect!</string>
+    <string name="loginCredentialsFailure">Username and/or Password are incorrect!!</string>
+    <string name="loginSuccess">Login Success...</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.imdb.MVP.moviesPage;
+package com.imdb.ui.mvp.moviespage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.imdb.R;
 import com.imdb.model.Movie;
-import com.imdb.ui.MovieDetailFragment;
+import com.imdb.ui.mvp.moviedetail.MovieDetailFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,7 +58,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
-                FragmentManager fragmentManager = ((MoviesListActivity) mContext).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((MoviesListActivity) mContext).
+                        getSupportFragmentManager();
                 Bundle bundle = new Bundle();
                 bundle.putString(MOVIE_TITLE, holder.movieName.getText().toString());
                 bundle.putString(MOVIE_RATED, holder.movieRating.getText().toString());
@@ -81,18 +82,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if(mMovieList != null) {
+        if (mMovieList != null) {
             return mMovieList.size();
         }
         return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.movie_title_poster) ImageView moviePoster;
-        @BindView(R.id.movie_name) TextView movieName;
-        @BindView(R.id.movie_rating) TextView movieRating;
-        @BindView(R.id.movie_runtime) TextView movieRuntime;
-        @BindView(R.id.movie_genres) TextView movieGenres;
+
+        @BindView(R.id.movie_title_poster)
+        ImageView moviePoster;
+        @BindView(R.id.movie_name)
+        TextView movieName;
+        @BindView(R.id.movie_rating)
+        TextView movieRating;
+        @BindView(R.id.movie_runtime)
+        TextView movieRuntime;
+        @BindView(R.id.movie_genres)
+        TextView movieGenres;
         String urlPoster, plotOfMovie, director = "", languages;
 
 
@@ -112,10 +119,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             plotOfMovie = movies.getPlot();
             languages = movies.getLanguages().toString();
 
-            for(int i = 0; i<movies.getDirectors().size(); i++) {
-                director += movies.getDirectors().get(i).getName()+", ";
+            for (int i = 0; i < movies.getDirectors().size(); i++) {
+                director += movies.getDirectors().get(i).getName() + ", ";
             }
-            director = director.substring(0, director.length()-2);
+            director = director.substring(0, director.length() - 2);
 
             Picasso.with(mContext)
                     .load(movies.getUrlPoster())

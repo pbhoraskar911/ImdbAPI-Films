@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MVP.moviesPage.MoviesListActivity"></activity>
-        <activity android:name=".MVP.login.LoginActivity"></activity>
+        <activity android:name=".ui.mvp.moviespage.MoviesListActivity"></activity>
+        <activity android:name=".ui.mvp.login.LoginActivity"></activity>
     </application>
 
 </manifest>

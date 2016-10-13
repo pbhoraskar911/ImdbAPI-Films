@@ -8,7 +8,7 @@
     android:layout_margin="3dp"
     android:padding="3dp"
     card_view:cardCornerRadius="6dp"
-    tools:context=".MVP.moviesPage.MoviesListActivity"
+    tools:context=".ui.mvp.moviespage.MoviesListActivity"
     >
 
     <LinearLayout

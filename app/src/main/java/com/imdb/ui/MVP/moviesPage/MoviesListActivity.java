@@ -1,4 +1,4 @@
-package com.imdb.MVP.moviesPage;
+package com.imdb.ui.mvp.moviespage;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -19,9 +19,10 @@ public class MoviesListActivity extends AppCompatActivity {
         MoviesFragment savedMoviesFragment = (MoviesFragment) getSupportFragmentManager()
                 .findFragmentByTag(MOVIES_FRAGMENT);
 
-        if(savedMoviesFragment == null) {
+        if (savedMoviesFragment == null) {
             MoviesFragment moviesFragment = new MoviesFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
             fragmentTransaction.add(R.id.moviesFrameLayout, moviesFragment, MOVIES_FRAGMENT);
             fragmentTransaction.commit();
         }
