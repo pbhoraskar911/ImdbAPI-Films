@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Strings -->
+    <string name="app_name">Popular Movies</string>
+    <string name="appTitle">Popular Movies</string>
+
+    <!-- Network Strings -->
+    <string name="network_error">No Network Connection!!</string>
+    <string name="no_internet">Please enable Wi-Fi or mobile data to connect internet</string>
+
+    <!-- Menu Strings -->
+    <string name="logout">Logout</string>
+    <string name="refresh">Refresh</string>
+
+    <!-- Login Strings -->
+    <string name="login">Login</string>
+    <string name="loginSuccess">Login Success…</string>
+    <string name="loginCredentialsFailure">Username and/or Password are incorrect!!</string>
+
+    <!-- Url Strings -->
+    <string name="image_url">http://image.tmdb.org/t/p/w342</string>
+    <string name="image_url_500">http://image.tmdb.org/t/p/w500</string>
+
+    <!-- UI Strings -->
+    <string name="string_label_rating">Rating</string>
+    <string name="string_label_release_date">Release Date</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_username">Username</string>
+    <string name="retry">Retry</string>
+
+</resources>

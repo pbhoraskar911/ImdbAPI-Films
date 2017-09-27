@@ -5,84 +5,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
-    android:padding="3dp"
-    card_view:cardCornerRadius="6dp"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardUseCompatPadding="true"
     tools:context=".ui.mvp.moviespage.MoviesListActivity"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:weightSum="2">
 
         <ImageView
             android:id="@+id/movie_title_poster"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.3"
-            android:scaleType="fitXY"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
             android:src="@mipmap/no_image"
-            >
-        </ImageView>
+            tools:ignore="ContentDescription"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/movie_name"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_margin="3dp"
-            android:layout_weight=".7"
-            android:orientation="vertical"
-            android:padding="2dp">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fadingEdge="horizontal"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLines="1"
+            android:padding="3dp"
+            android:scrollHorizontally="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            tools:text="Movie Title"/>
 
-            <TextView
-                android:id="@+id/movie_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:gravity="fill|center_vertical"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                tools:text="Movie Title"/>
+        <TextView
+            android:id="@+id/movie_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            tools:text="Movie Rating"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.5"
-                android:orientation="vertical"
-                android:weightSum="3">
-
-                <TextView
-                    android:id="@+id/movie_rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    tools:text="Movie Rating"/>
-
-                <TextView
-                    android:id="@+id/movie_runtime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    tools:text="Movie Runtime"/>
-
-                <TextView
-                    android:id="@+id/movie_genres"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    tools:text="Movie Genres"
-                    />
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

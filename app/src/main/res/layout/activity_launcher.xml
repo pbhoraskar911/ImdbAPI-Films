@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context="com.imdb.ui.LauncherActivity">
+    tools:context="com.tmdb.ui.mvp.splashscreen.LauncherActivity">
 
     <TextView
         android:id="@+id/app_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:fontFamily="casual"
         android:gravity="center"
         android:text="@string/appTitle"
-        android:textColor="@color/appColor"
-        android:textSize="48sp"
-        android:typeface="serif"
-        android:textStyle="bold"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="36sp"
+        android:typeface="serif"/>
 
 </RelativeLayout>
