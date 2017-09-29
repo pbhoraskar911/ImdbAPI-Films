@@ -23,6 +23,9 @@ android {
             proguardFile 'proguard-dependency-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'API_KEY', popularMoviesApiKey
+    }
     lintOptions {
         abortOnError false
     }

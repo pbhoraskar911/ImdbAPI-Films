@@ -3,6 +3,7 @@ package com.tmdb.ui.mvp.moviespage;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import com.tmdb.BuildConfig;
 import com.tmdb.model.ModelMapper;
 import com.tmdb.model.MovieDBResponse;
 import com.tmdb.model.Result;
@@ -27,6 +28,7 @@ import retrofit2.Retrofit;
 
 public class MoviesPresenter implements Presenter<MoviesView> {
 
+    private final String tag;
     private Retrofit retrofit;
     private MoviesView moviesView;
 
@@ -34,9 +36,10 @@ public class MoviesPresenter implements Presenter<MoviesView> {
 
     private Call<MovieDBResponse> movieDBResponseCall;
 
-    public MoviesPresenter(MoviesView moviesView, Retrofit retrofit) {
+    public MoviesPresenter(MoviesView moviesView, Retrofit retrofit, String tag) {
         this.moviesView = moviesView;
         this.retrofit = retrofit;
+        this.tag = tag;
     }
 
     public void makeRetrofitCall() {
@@ -47,10 +50,22 @@ public class MoviesPresenter implements Presenter<MoviesView> {
         moviesView.showProgress();
 
         Map<String, String> queryParameters = new HashMap<String, String>();
-        queryParameters.put("api_key", "6a81b36fbcea5752b554e90dbdf643cd");
-        queryParameters.put("sort_by", "popularity.desc");
-        queryParameters.put("primary_release_date.gte", getDate(30));
-        queryParameters.put("primary_release_date.lte", getDate(0));
+        queryParameters.put("api_key", BuildConfig.API_KEY);
+
+        queryParameters.put("vote_count.gte", "250");
+        queryParameters.put("include_adult", "false");
+        queryParameters.put("with_original_language", "en");
+        queryParameters.put("primary_release_year", "2017");
+
+        if (tag.equals(MoviesListActivity.POPULAR_TAG)) {
+            queryParameters.put("sort_by", "popularity.desc");
+        }
+        else if (tag.equals(MoviesListActivity.RELEASE_DATE_TAG)) {
+            queryParameters.put("sort_by", "release_date.desc");
+        }
+        else if (tag.equals(MoviesListActivity.VOTE_COUNT_TAG)) {
+            queryParameters.put("sort_by", "vote_count.desc");
+        }
 
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
         movieDBResponseCall = retrofitInterface.queryTmdbApi(queryParameters);
@@ -59,6 +74,7 @@ public class MoviesPresenter implements Presenter<MoviesView> {
             @Override
             public void onResponse(Call<MovieDBResponse> call, Response<MovieDBResponse> response) {
                 if (response.code() == 200) {
+                    Log.i("movie detail url : ", String.valueOf(call.request().url()));
                     onSuccess(response);
                 }
                 flag = true;
@@ -78,7 +94,7 @@ public class MoviesPresenter implements Presenter<MoviesView> {
         for (Result movieResult : response.body().getResults()) {
             moviesList.add(ModelMapper.toMovieResultModel(movieResult));
         }
-        moviesView.setUpRecyclerView(moviesList);
+        moviesView.setUpRecyclerView(moviesList, tag);
     }
 
     public static String getDate(int days) {

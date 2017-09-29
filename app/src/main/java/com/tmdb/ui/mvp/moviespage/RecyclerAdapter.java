@@ -28,18 +28,20 @@ import butterknife.ButterKnife;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
+    public static final String MOVIE_PLOT = "movie_plot";
     public static final String MOVIE_TITLE = "movie_title";
     public static final String MOVIE_RATED = "movie_rated";
-    public static final String MOVIE_RELEASE_DATE = "movie_release_date";
     public static final String MOVIE_POSTER_URL = "movie_poster";
-    public static final String MOVIE_PLOT = "movie_plot";
+    public static final String MOVIE_RELEASE_DATE = "movie_release_date";
 
     private Context mContext;
     private List<Result> mMovieList;
+    private final String navigationTag;
 
-    public RecyclerAdapter(Context context, List<Result> movieList) {
+    public RecyclerAdapter(Context context, List<Result> movieList, String tag) {
         mContext = context;
         mMovieList = movieList;
+        this.navigationTag = tag;
     }
 
     @Override
@@ -51,7 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.bindData(mMovieList.get(position));
+        holder.bindData(mMovieList.get(position), navigationTag);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,13 +110,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
          * Function to bind data
          *
          * @param movieResult
+         * @param navigationTag
          */
-        public void bindData(Result movieResult) {
+        public void bindData(Result movieResult, String navigationTag) {
 
 
             movieName.setText(movieResult.getTitle());
-            movieRating.setText(String.format("Rating : %s",
-                    String.valueOf(movieResult.getVoteAverage())));
+
+            switch (navigationTag) {
+                case MoviesListActivity.RELEASE_DATE_TAG:
+                    movieRating.setText(String.format("Rating : %s",
+                            String.valueOf(movieResult.getVoteAverage())));
+                    break;
+                case MoviesListActivity.POPULAR_TAG:
+                    movieRating.setText(String.format("Popularity : %.2f", movieResult.getPopularity()));
+                    break;
+                case MoviesListActivity.VOTE_COUNT_TAG:
+                    movieRating.setText(String.format("Vote Count : %d", movieResult.getVoteCount()));
+                    break;
+            }
 
             String moviePosterUrl = mContext.getString(R.string.image_url)
                     + movieResult.getPosterPath();

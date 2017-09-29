@@ -9,13 +9,15 @@ public abstract class ModelMapper {
 
         Result result = new Result();
 
+        result.setId(movieResult.getId());
         result.setTitle(movieResult.getTitle());
+        result.setOverview(movieResult.getOverview());
+        result.setVoteCount(movieResult.getVoteCount());
+        result.setPopularity(movieResult.getPopularity());
         result.setPosterPath(movieResult.getPosterPath());
         result.setVoteAverage(movieResult.getVoteAverage());
-
-        result.setOverview(movieResult.getOverview());
-        result.setBackdropPath(movieResult.getBackdropPath());
         result.setReleaseDate(movieResult.getReleaseDate());
+        result.setBackdropPath(movieResult.getBackdropPath());
 
         return result;
     }

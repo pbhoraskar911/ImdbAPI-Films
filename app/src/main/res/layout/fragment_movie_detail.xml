@@ -17,9 +17,9 @@
             android:id="@+id/detail_movie_poster"
             android:layout_width="match_parent"
             android:layout_height="@dimen/poster_image_details_height"
-            android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:src="@mipmap/no_image"
+            android:scaleType="centerCrop"
             tools:ignore="ContentDescription"/>
 
         <TextView

@@ -37,11 +37,6 @@ import retrofit2.Retrofit;
  * Created by Pranav Bhoraskar
  */
 
-// refreshlayout progress
-// gridlayout imageview
-// saving list
-// launcher page problem
-
 public class MoviesFragment extends Fragment implements MoviesView,
         SwipeRefreshLayout.OnRefreshListener {
 
@@ -58,6 +53,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
     @Inject
     Retrofit retrofit;
 
+    private String tag;
     boolean flag = false;
 
     private SessionManager sessionManager;
@@ -84,6 +80,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
         ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
         Bundle bundle = getArguments();
+        tag = bundle.getString("tag");
 
         if (ViewUtils.isInternetAvailable(getActivity())) {
             if (savedInstanceState != null) {
@@ -105,18 +102,17 @@ public class MoviesFragment extends Fragment implements MoviesView,
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        fetchMovieDetails();
+        fetchMovieDetails(tag);
     }
 
-    private void fetchMovieDetails() {
+    private void fetchMovieDetails(String tag) {
         if (ViewUtils.isInternetAvailable(getActivity())) {
             if (!listOfMovies.isEmpty()) {
-                setUpRecyclerView(listOfMovies);
+                setUpRecyclerView(listOfMovies, tag);
                 flag = true;
             }
             else {
-                moviesPresenter = new MoviesPresenter(this, retrofit);
+                moviesPresenter = new MoviesPresenter(this, retrofit, tag);
                 moviesPresenter.makeRetrofitCall();
             }
         }
@@ -133,9 +129,9 @@ public class MoviesFragment extends Fragment implements MoviesView,
     }
 
     @Override
-    public void setUpRecyclerView(ArrayList<Result> listOfMovies) {
+    public void setUpRecyclerView(ArrayList<Result> listOfMovies, String tag) {
         this.listOfMovies = listOfMovies;
-        recyclerAdapter = new RecyclerAdapter(getActivity(), this.listOfMovies);
+        recyclerAdapter = new RecyclerAdapter(getActivity(), this.listOfMovies, tag);
 
         gridLayoutManager = new GridLayoutManager(getActivity(), 2);
 
@@ -183,7 +179,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
         if ((item.getItemId()) == R.id.action_refresh) {
             Log.i(TAG, "Refresh Clicked..");
             if (ViewUtils.isInternetAvailable(getActivity())) {
-                fetchMovieDetails();
+                fetchMovieDetails(tag);
                 Toast.makeText(getActivity(), "Refreshing Movies..", Toast.LENGTH_SHORT).show();
             }
             else {
@@ -226,7 +222,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
                 .setAction(R.string.retry, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        fetchMovieDetails();
+                        fetchMovieDetails(tag);
                     }
                 })
                 .setActionTextColor(getResources().getColor(R.color.colorPrimaryLight))
@@ -255,6 +251,6 @@ public class MoviesFragment extends Fragment implements MoviesView,
         if (swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         }
-        fetchMovieDetails();
+        fetchMovieDetails(tag);
     }
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public interface MoviesView extends ViewInterface {
 
-    void setUpRecyclerView(ArrayList<Result> tempData);
+    void setUpRecyclerView(ArrayList<Result> tempData, String tag);
 
     void showErrorDialog();
 

@@ -22,10 +22,13 @@
     <string name="image_url_500">http://image.tmdb.org/t/p/w500</string>
 
     <!-- UI Strings -->
-    <string name="string_label_rating">Rating</string>
-    <string name="string_label_release_date">Release Date</string>
+    <string name="retry">Retry</string>
     <string name="hint_password">Password</string>
     <string name="hint_username">Username</string>
-    <string name="retry">Retry</string>
+    <string name="movie_popular">Most Popular</string>
+    <string name="movie_vote_count">Vote Count</string>
+    <string name="movie_latest">Latest Release</string>
+    <string name="string_label_rating">Rating</string>
+    <string name="string_label_release_date">Release Date</string>
 
 </resources>
