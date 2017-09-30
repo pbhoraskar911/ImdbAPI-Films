@@ -2,7 +2,7 @@
 
 The following app is the part of the Udacity Android Developer Nanodegree. Features - 
   - The app fetches the data from The MovieDb api and displays latest, popular and highest rated movies to the user.
-  - Displays details about the movie such as Name, Release Date, Rating and Poster. (New Fratures coming)
+  - Displays details about the movie such as Name, Release Date, Rating and Poster. (New Features coming)
   
 Getting API_KEY for the project and adding to the project -
   - Sign in to TheMovieDb api get and your api key for the project. 
