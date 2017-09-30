@@ -38,7 +38,7 @@ public class LauncherActivity extends AppCompatActivity {
 
     private void getSessionDetails() {
         final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 SessionManager sessionManager = new SessionManager(LauncherActivity.this);

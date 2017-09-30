@@ -1,5 +1,6 @@
 package com.tmdb.ui.mvp.moviespage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -112,6 +113,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
          * @param movieResult
          * @param navigationTag
          */
+        @SuppressLint("DefaultLocale")
         public void bindData(Result movieResult, String navigationTag) {
 
 
@@ -123,10 +125,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                             String.valueOf(movieResult.getVoteAverage())));
                     break;
                 case MoviesListActivity.POPULAR_TAG:
-                    movieRating.setText(String.format("Popularity : %.2f", movieResult.getPopularity()));
+                    movieRating.setText(String.format("Popularity : %.2f",
+                            movieResult.getPopularity()));
                     break;
                 case MoviesListActivity.VOTE_COUNT_TAG:
-                    movieRating.setText(String.format("Vote Count : %d", movieResult.getVoteCount()));
+                    movieRating.setText(String.format("Vote Count : %d",
+                            movieResult.getVoteCount()));
                     break;
             }
 
