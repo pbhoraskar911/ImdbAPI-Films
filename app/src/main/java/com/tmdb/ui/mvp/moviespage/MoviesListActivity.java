@@ -54,9 +54,6 @@ public class MoviesListActivity extends AppCompatActivity {
                     .beginTransaction();
             fragmentTransaction.add(R.id.moviesFrameLayout, fragment, MOVIES_FRAGMENT).commit();
 
-//            Bottom navigation
-//            BottomNavigationHelper.disableShiftMode(bottomNavigation);
-
             bottomNavigation.setOnNavigationItemSelectedListener(
                     new BottomNavigationView.OnNavigationItemSelectedListener() {
                         @Override
@@ -85,5 +82,15 @@ public class MoviesListActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

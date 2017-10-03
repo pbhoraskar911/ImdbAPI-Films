@@ -39,7 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/label_popularity"
                     android:layout_centerHorizontal="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="100.00"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
@@ -70,7 +71,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/label_release_date"
                     android:layout_centerHorizontal="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="2000-12-12"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

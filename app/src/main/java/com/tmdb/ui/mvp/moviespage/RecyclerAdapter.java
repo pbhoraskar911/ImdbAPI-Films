@@ -54,7 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.bindData(mMovieList.get(position), navigationTag);
+        holder.bindData(mMovieList.get(position));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,28 +111,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
          * Function to bind data
          *
          * @param movieResult
-         * @param navigationTag
          */
         @SuppressLint("DefaultLocale")
-        public void bindData(Result movieResult, String navigationTag) {
+        public void bindData(Result movieResult) {
 
 
             movieName.setText(movieResult.getTitle());
 
-            switch (navigationTag) {
-                case MoviesListActivity.RELEASE_DATE_TAG:
-                    movieRating.setText(String.format("Rating : %s",
-                            String.valueOf(movieResult.getVoteAverage())));
-                    break;
-                case MoviesListActivity.POPULAR_TAG:
-                    movieRating.setText(String.format("Popularity : %.2f",
-                            movieResult.getPopularity()));
-                    break;
-                case MoviesListActivity.VOTE_COUNT_TAG:
-                    movieRating.setText(String.format("Vote Count : %d",
-                            movieResult.getVoteCount()));
-                    break;
-            }
+            movieRating.setText(String.format("Rating : %s",
+                    String.valueOf(movieResult.getVoteAverage())));
 
             String moviePosterUrl = mContext.getString(R.string.image_url)
                     + movieResult.getPosterPath();
