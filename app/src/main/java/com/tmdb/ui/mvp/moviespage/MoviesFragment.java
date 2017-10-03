@@ -95,6 +95,9 @@ public class MoviesFragment extends Fragment implements MoviesView,
             }
             setUpSwipeRefresh();
         }
+        else {
+            swipeRefresh.setEnabled(false);
+        }
         return view;
     }
 
@@ -117,6 +120,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
             }
         }
         else {
+            swipeRefresh.setEnabled(false);
             hideProgress();
             displaySnackBar();
         }
@@ -183,6 +187,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
                 Toast.makeText(getActivity(), "Refreshing Movies..", Toast.LENGTH_SHORT).show();
             }
             else {
+                swipeRefresh.setEnabled(false);
                 hideProgress();
                 displaySnackBar();
             }
@@ -238,11 +243,17 @@ public class MoviesFragment extends Fragment implements MoviesView,
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (isLandscapeMode()) {
-            gridLayoutManager.setSpanCount(3);
+        if (ViewUtils.isInternetAvailable(getActivity())) {
+            if (isLandscapeMode()) {
+                gridLayoutManager.setSpanCount(3);
+            }
+            else {
+                gridLayoutManager.setSpanCount(2);
+            }
         }
         else {
-            gridLayoutManager.setSpanCount(2);
+            swipeRefresh.setEnabled(false);
+            displaySnackBar();
         }
     }
 

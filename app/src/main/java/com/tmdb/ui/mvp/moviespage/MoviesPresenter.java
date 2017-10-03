@@ -48,28 +48,38 @@ public class MoviesPresenter implements Presenter<MoviesView> {
 
     public void fetchMovieDetails() {
         moviesView.showProgress();
+        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         Map<String, String> queryParameters = new HashMap<String, String>();
         queryParameters.put("api_key", BuildConfig.API_KEY);
 
         queryParameters.put("vote_count.gte", "250");
         queryParameters.put("include_adult", "false");
-        queryParameters.put("with_original_language", "en");
-        queryParameters.put("primary_release_year", "2017");
+
 
         if (tag.equals(MoviesListActivity.POPULAR_TAG)) {
+            queryParameters.put("language", "en-US");
             queryParameters.put("sort_by", "popularity.desc");
+            movieDBResponseCall = retrofitInterface.queryPopularMovieApi(queryParameters);
         }
-        else if (tag.equals(MoviesListActivity.RELEASE_DATE_TAG)) {
+        if (tag.equals(MoviesListActivity.RELEASE_DATE_TAG)) {
+            queryParameters.put("with_original_language", "en");
+            queryParameters.put("primary_release_year", "2017");
             queryParameters.put("sort_by", "release_date.desc");
+            movieDBResponseCall = retrofitInterface.queryTmdbApi(queryParameters);
         }
-        else if (tag.equals(MoviesListActivity.VOTE_COUNT_TAG)) {
+        if (tag.equals(MoviesListActivity.VOTE_COUNT_TAG)) {
+            queryParameters.put("language", "en-US");
             queryParameters.put("sort_by", "vote_count.desc");
+            movieDBResponseCall = retrofitInterface.queryTopRatedMoviesApi(queryParameters);
         }
 
-        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        movieDBResponseCall = retrofitInterface.queryTmdbApi(queryParameters);
+        Log.i("movie detail url : ", String.valueOf(movieDBResponseCall.request().url()));
 
+        fetchApiResponse(movieDBResponseCall);
+    }
+
+    private void fetchApiResponse(Call<MovieDBResponse> movieDBResponseCall) {
         movieDBResponseCall.enqueue(new Callback<MovieDBResponse>() {
             @Override
             public void onResponse(Call<MovieDBResponse> call, Response<MovieDBResponse> response) {

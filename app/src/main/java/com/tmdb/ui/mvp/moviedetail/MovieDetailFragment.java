@@ -84,7 +84,8 @@ public class MovieDetailFragment extends Fragment {
         detailMovieRating.setText(movieRated);
         detailMovieTitle.setText(movieTitle);
         detailMovieReleaseDate.setText(movieReleaseDate);
-        Picasso.with(getActivity()).load(moviePoster).placeholder(R.mipmap.no_image).fit()
+        Picasso.with(getActivity()).load(moviePoster).placeholder(R.mipmap.no_image)
+                .fit()
                 .into(detailMoviePoster);
     }
 

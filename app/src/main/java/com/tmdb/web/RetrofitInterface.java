@@ -16,4 +16,10 @@ public interface RetrofitInterface {
 
     @GET("3/discover/movie")
     Call<MovieDBResponse> queryTmdbApi(@QueryMap Map<String, String> queryMap);
+
+    @GET("3/movie/popular")
+    Call<MovieDBResponse> queryPopularMovieApi(@QueryMap Map<String, String> queryMap);
+
+    @GET("3/movie/top_rated")
+    Call<MovieDBResponse> queryTopRatedMoviesApi(@QueryMap Map<String, String> queryMap);
 }

@@ -32,8 +32,7 @@ public abstract class ViewUtils {
 
     public static void createNoInternetDialog(@NonNull final Context context, int title) {
 
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle(title);
         builder.setMessage(context.getString(R.string.no_internet));
         builder.setCancelable(false);
