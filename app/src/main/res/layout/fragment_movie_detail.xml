@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,14 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/poster_image_details_height"
             android:adjustViewBounds="true"
-            android:src="@mipmap/no_image"
             android:scaleType="centerCrop"
+            android:src="@mipmap/no_image"
             tools:ignore="ContentDescription"/>
 
         <TextView
             android:id="@+id/detail_movie_title"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_below="@+id/detail_movie_poster"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:padding="6dp"
@@ -34,6 +35,11 @@
             tools:text="Movie Title"
             />
 
-        <include layout="@layout/layout_movie_details"/>
-    </LinearLayout>
+        <include
+            layout="@layout/layout_movie_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/detail_movie_title"
+            />
+    </RelativeLayout>
 </ScrollView>

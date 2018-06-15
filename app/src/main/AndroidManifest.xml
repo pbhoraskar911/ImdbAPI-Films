@@ -27,9 +27,16 @@
         <activity
             android:name=".ui.mvp.moviespage.MoviesListActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
             />
         <activity
             android:name=".ui.mvp.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity
+            android:name=".ui.mvp.webviewpage.WebViewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             />

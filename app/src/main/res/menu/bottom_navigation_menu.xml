@@ -23,4 +23,11 @@
         android:title="@string/movie_vote_count"
         app:showAsAction="ifRoom"
         />
+
+    <item
+        android:id="@+id/bn_movie_favorites"
+        android:icon="@drawable/icon_favorites"
+        android:title="@string/movie_favorite"
+        app:showAsAction="ifRoom"
+        />
 </menu>

@@ -5,5 +5,6 @@
     <color name="colorPrimaryLight">#B2DFDB</color>
     <color name="colorAccent">#CDDC39</color>
     <color name="colorWhite">#FFFFFFFF</color>
-    <color name="color_background">#FFE0E0E0</color>
+    <color name="colorTextDark">#212121</color>
+    <color name="color_background">#e0e0e0</color>
 </resources>

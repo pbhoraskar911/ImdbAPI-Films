@@ -30,5 +30,18 @@
     <string name="string_label_rating">Rating</string>
     <string name="movie_latest">Latest Release</string>
     <string name="string_label_release_date">Release Date</string>
+    <string name="minutes">mins</string>
+    <string name="string_imdb">Imdb</string>
+    <string name="string_button_movie_home">Movie Home</string>
+    <string name="url">page_url</string>
+    <string name="no_page_found">No Page Found</string>
+    <string name="videos">Videos</string>
+    <string name="button_review">User Reviews</string>
+    <string name="timber_reviews_fetched">Reviews fetched.</string>
+    <string name="button_read_more">Read More</string>
+    <string name="timber_no_results">No results available.</string>
+    <string name="no_user_reviews_available">Reviews Not Available</string>
+    <string name="menu_item_favorite">Favorite</string>
+    <string name="movie_favorite">Favorites</string>
 
 </resources>

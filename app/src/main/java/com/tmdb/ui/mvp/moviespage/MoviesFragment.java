@@ -32,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import retrofit2.Retrofit;
+import timber.log.Timber;
 
 /**
  * Created by Pranav Bhoraskar
@@ -43,7 +44,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
     private static final String TAG = MoviesFragment.class.getSimpleName();
     private static final String SAVE_MOVIES_STATE = "movies_state";
 
-    @BindView(R.id.movie_recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView movieRecyclerView;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
@@ -181,7 +182,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if ((item.getItemId()) == R.id.action_refresh) {
-            Log.i(TAG, "Refresh Clicked..");
+            Timber.tag(TAG).i("Refresh Clicked..");
             if (ViewUtils.isInternetAvailable(getActivity())) {
                 fetchMovieDetails(tag);
                 Toast.makeText(getActivity(), "Refreshing Movies..", Toast.LENGTH_SHORT).show();
@@ -194,7 +195,7 @@ public class MoviesFragment extends Fragment implements MoviesView,
             return true;
         }
         if ((item.getItemId()) == R.id.logout) {
-            Log.i(TAG, "Logging out...");
+            Timber.tag(TAG).i("Logging out...");
             sessionManager = new SessionManager(getActivity());
             sessionManager.logoutUser();
             getActivity().finish();
@@ -263,5 +264,9 @@ public class MoviesFragment extends Fragment implements MoviesView,
             swipeRefresh.setRefreshing(false);
         }
         fetchMovieDetails(tag);
+    }
+
+    public static Fragment newInstance() {
+        return new MoviesFragment();
     }
 }

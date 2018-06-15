@@ -17,6 +17,9 @@ import com.tmdb.ui.mvp.splashscreen.LauncherActivity;
 
 public abstract class ViewUtils {
 
+    public static final String IMDB_URL = "http://www.imdb.com/title/";
+    public static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=";
+
     /**
      * Check for the availability of Internet
      *

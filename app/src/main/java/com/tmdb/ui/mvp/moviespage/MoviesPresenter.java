@@ -21,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import timber.log.Timber;
 
 /**
  * Created by Pranav Bhoraskar
@@ -60,7 +61,7 @@ public class MoviesPresenter implements Presenter<MoviesView> {
         if (tag.equals(MoviesListActivity.POPULAR_TAG)) {
             queryParameters.put("language", "en-US");
             queryParameters.put("sort_by", "popularity.desc");
-            movieDBResponseCall = retrofitInterface.queryPopularMovieApi(queryParameters);
+            movieDBResponseCall = retrofitInterface.querySortMoviesByType(tag, queryParameters);
         }
         if (tag.equals(MoviesListActivity.RELEASE_DATE_TAG)) {
             queryParameters.put("with_original_language", "en");
@@ -71,10 +72,14 @@ public class MoviesPresenter implements Presenter<MoviesView> {
         if (tag.equals(MoviesListActivity.VOTE_COUNT_TAG)) {
             queryParameters.put("language", "en-US");
             queryParameters.put("sort_by", "vote_count.desc");
-            movieDBResponseCall = retrofitInterface.queryTopRatedMoviesApi(queryParameters);
+            movieDBResponseCall = retrofitInterface.querySortMoviesByType(tag, queryParameters);
         }
-
-        Log.i("movie detail url : ", String.valueOf(movieDBResponseCall.request().url()));
+        if (tag.equals(MoviesListActivity.FAVORITE_TAG)) {
+            Timber.i("tag for favorite : " + tag);
+            queryParameters.put("language", "en-US");
+            queryParameters.put("sort_by", "popularity.desc");
+            movieDBResponseCall = retrofitInterface.querySortMoviesByType(tag, queryParameters);
+        }
 
         fetchApiResponse(movieDBResponseCall);
     }
@@ -84,7 +89,7 @@ public class MoviesPresenter implements Presenter<MoviesView> {
             @Override
             public void onResponse(Call<MovieDBResponse> call, Response<MovieDBResponse> response) {
                 if (response.code() == 200) {
-                    Log.i("movie detail url : ", String.valueOf(call.request().url()));
+                    Timber.tag("movie detail url : ").i(String.valueOf(call.request().url()));
                     onSuccess(response);
                 }
                 flag = true;
@@ -93,7 +98,7 @@ public class MoviesPresenter implements Presenter<MoviesView> {
 
             @Override
             public void onFailure(Call<MovieDBResponse> call, Throwable t) {
-                Log.e(getClass().getSimpleName(), "" + t.getMessage());
+                Timber.tag(getClass().getSimpleName()).e("%s", t.getMessage());
                 moviesView.hideProgress();
             }
         });
@@ -131,5 +136,9 @@ public class MoviesPresenter implements Presenter<MoviesView> {
     @Override
     public void detachView() {
         moviesView = null;
+        if (!movieDBResponseCall.isCanceled() && movieDBResponseCall != null) {
+            System.out.println("Cancelling movieDBResponseCall..");
+            movieDBResponseCall.cancel();
+        }
     }
 }

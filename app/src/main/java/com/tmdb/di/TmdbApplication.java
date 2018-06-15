@@ -7,6 +7,8 @@ import com.tmdb.di.component.NetworkComponent;
 import com.tmdb.di.module.AppModule;
 import com.tmdb.di.module.NetworkModule;
 
+import timber.log.Timber;
+
 /**
  * Created by Pranav Bhoraskar
  */
@@ -24,6 +26,8 @@ public class TmdbApplication extends Application {
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule(BASE_URL))
                 .build();
+
+        Timber.plant(new Timber.DebugTree());
     }
 
     public NetworkComponent getNetworkComponent() {

@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
+    public static final String MOVIE_ID = "movie_id";
     public static final String MOVIE_PLOT = "movie_plot";
     public static final String MOVIE_TITLE = "movie_title";
     public static final String MOVIE_RATED = "movie_rated";
@@ -64,12 +65,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
                     FragmentManager fragmentManager = ((MoviesListActivity) mContext).
                             getSupportFragmentManager();
+
                     Bundle bundle = new Bundle();
-                    bundle.putString(MOVIE_TITLE, holder.movieName.getText().toString());
-                    bundle.putString(MOVIE_RATED, holder.movieRating.getText().toString());
-                    bundle.putString(MOVIE_POSTER_URL, holder.urlPoster);
-                    bundle.putString(MOVIE_PLOT, holder.plotOfMovie);
-                    bundle.putString(MOVIE_RELEASE_DATE, holder.releaseDate);
+                    setBundleDetails(bundle, holder);
                     movieDetailFragment.setArguments(bundle);
 
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -83,6 +81,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             }
         });
+    }
+
+    private void setBundleDetails(Bundle bundle, ViewHolder holder) {
+        bundle.putString(MOVIE_TITLE, holder.movieName.getText().toString());
+        bundle.putString(MOVIE_RATED, holder.movieRating.getText().toString());
+        bundle.putString(MOVIE_POSTER_URL, holder.urlPoster);
+        bundle.putString(MOVIE_PLOT, holder.plotOfMovie);
+        bundle.putString(MOVIE_RELEASE_DATE, holder.releaseDate);
+        bundle.putString(MOVIE_ID, holder.movieId);
     }
 
     @Override
@@ -99,7 +106,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         @BindView(R.id.movie_rating)
         TextView movieRating;
 
-        String urlPoster, plotOfMovie, releaseDate;
+        String movieId, urlPoster, plotOfMovie, releaseDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -115,7 +122,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         @SuppressLint("DefaultLocale")
         public void bindData(Result movieResult) {
 
-
+            movieId = String.valueOf(movieResult.getId());
             movieName.setText(movieResult.getTitle());
 
             movieRating.setText(String.format("Rating : %s",

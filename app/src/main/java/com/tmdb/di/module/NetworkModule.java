@@ -1,5 +1,11 @@
 package com.tmdb.di.module;
 
+import com.google.gson.GsonBuilder;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.tmdb.web.RetrofitInterface;
+
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -23,12 +29,38 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofitConnection() {
+    Retrofit provideRetrofitConnection(GsonConverterFactory gsonConverterFactory) {
 
         return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(new OkHttpClient())
+                .addConverterFactory(gsonConverterFactory)
+                .client(new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .writeTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(10, TimeUnit.SECONDS)
+                        .build())
                 .baseUrl(baseUrl)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    GsonConverterFactory provideGsonConverterFactory() {
+        return GsonConverterFactory.create(new GsonBuilder().create());
+    }
+
+    @Provides
+    @Singleton
+    RetrofitInterface provideRxJavaRetrofitConnection(GsonConverterFactory gsonConverterFactory) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(gsonConverterFactory)
+                .client(new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .writeTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(10, TimeUnit.SECONDS)
+                        .build())
+                .build();
+        return retrofit.create(RetrofitInterface.class);
     }
 }
