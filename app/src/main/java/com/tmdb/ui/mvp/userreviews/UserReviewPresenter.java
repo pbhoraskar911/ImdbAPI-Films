@@ -1,6 +1,6 @@
 package com.tmdb.ui.mvp.userreviews;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.tmdb.BuildConfig;
 import com.tmdb.R;

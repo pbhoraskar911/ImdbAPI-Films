@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.tmdb.R;
 import com.tmdb.ui.mvp.login.LoginActivity;

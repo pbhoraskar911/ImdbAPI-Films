@@ -3,7 +3,7 @@ package com.tmdb.session;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.tmdb.ui.mvp.login.LoginActivity;
 
