@@ -1,19 +1,21 @@
 package com.tmdb.ui.mvp.webviewpage;
 
+import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.tmdb.R;
 
 import java.util.Objects;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,13 +28,17 @@ public class WebViewActivity extends AppCompatActivity {
     WebView webView;
     @BindView(R.id.no_web_page)
     TextView noPageFoundTextView;
+    @BindView(R.id.progress_bar_webview)
+    ProgressBar progressBarWebview;
 
     private String pageUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_webview);
+        getWindow().setFeatureInt(Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
         ButterKnife.bind(this);
 
         if (getIntent() != null) {
@@ -49,11 +55,17 @@ public class WebViewActivity extends AppCompatActivity {
         else {
             noPageFoundTextView.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
+
+            webView.setWebViewClient(new AppWebViewClient(progressBarWebview));
+
             WebSettings webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
-            webView.setWebViewClient(new WebViewClient());
             webView.loadUrl(pageUrl);
         }
+    }
+
+    private Context getCurrentContext() {
+        return WebViewActivity.this;
     }
 
     @Override

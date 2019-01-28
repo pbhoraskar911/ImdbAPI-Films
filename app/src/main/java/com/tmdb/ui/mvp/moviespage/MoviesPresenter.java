@@ -1,7 +1,6 @@
 package com.tmdb.ui.mvp.moviespage;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import com.tmdb.BuildConfig;
 import com.tmdb.model.ModelMapper;
@@ -58,23 +57,23 @@ public class MoviesPresenter implements Presenter<MoviesView> {
         queryParameters.put("include_adult", "false");
 
 
-        if (tag.equals(MoviesListActivity.POPULAR_TAG)) {
+        if (tag.equals(MoviesListActivity.POPULAR_TAB)) {
             queryParameters.put("language", "en-US");
             queryParameters.put("sort_by", "popularity.desc");
             movieDBResponseCall = retrofitInterface.querySortMoviesByType(tag, queryParameters);
         }
-        if (tag.equals(MoviesListActivity.RELEASE_DATE_TAG)) {
+        if (tag.equals(MoviesListActivity.RELEASE_DATE_TAB)) {
             queryParameters.put("with_original_language", "en");
             queryParameters.put("primary_release_year", "2017");
             queryParameters.put("sort_by", "release_date.desc");
             movieDBResponseCall = retrofitInterface.queryTmdbApi(queryParameters);
         }
-        if (tag.equals(MoviesListActivity.VOTE_COUNT_TAG)) {
+        if (tag.equals(MoviesListActivity.VOTE_COUNT_TAB)) {
             queryParameters.put("language", "en-US");
             queryParameters.put("sort_by", "vote_count.desc");
             movieDBResponseCall = retrofitInterface.querySortMoviesByType(tag, queryParameters);
         }
-        if (tag.equals(MoviesListActivity.FAVORITE_TAG)) {
+        if (tag.equals(MoviesListActivity.FAVORITE_TAB)) {
             Timber.i("tag for favorite : " + tag);
             queryParameters.put("language", "en-US");
             queryParameters.put("sort_by", "popularity.desc");

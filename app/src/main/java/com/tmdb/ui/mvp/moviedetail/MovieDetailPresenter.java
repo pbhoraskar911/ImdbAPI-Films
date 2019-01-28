@@ -1,6 +1,5 @@
 package com.tmdb.ui.mvp.moviedetail;
 
-import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.tmdb.BuildConfig;
@@ -14,10 +13,12 @@ import com.tmdb.web.RetrofitInterface;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import timber.log.Timber;
 
 /**
  * Created by Pranav Bhoraskar
@@ -73,7 +74,7 @@ public class MovieDetailPresenter implements Presenter<MovieDetailsView> {
 
             @Override
             public void onFailure(Call<MovieDetailResponse> call, Throwable t) {
-                Log.e(getClass().getSimpleName(), "" + t.getMessage());
+                Timber.tag(getClass().getSimpleName()).e("" + t.getMessage());
                 movieDetailsView.hideProgress();
             }
         });
@@ -83,6 +84,7 @@ public class MovieDetailPresenter implements Presenter<MovieDetailsView> {
         fetchMovieVideos();
         this.movieDetailResponse = ModelMapper.toMovieDetailModel(movieDetailResponse);
 
+        movieDetailsView.hideProgress();
         movieDetailsView.setMovieDetails(movieDetailResponse);
     }
 

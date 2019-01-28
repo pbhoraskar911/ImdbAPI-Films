@@ -20,4 +20,12 @@
         android:textColor="@color/colorTextDark"
         android:textSize="18sp"
         android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar_webview"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="2dp"/>
 </RelativeLayout>

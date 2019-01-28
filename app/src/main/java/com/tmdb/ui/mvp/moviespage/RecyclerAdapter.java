@@ -2,10 +2,14 @@ package com.tmdb.ui.mvp.moviespage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.tmdb.R;
 import com.tmdb.model.Result;
+import com.tmdb.ui.mvp.moviedetail.MovieDetailActivity;
 import com.tmdb.ui.mvp.moviedetail.MovieDetailFragment;
 import com.tmdb.utils.ViewUtils;
 
@@ -47,14 +52,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View holder = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_list_row, parent, false);
         return new ViewHolder(holder);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.bindData(mMovieList.get(position));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,25 +67,37 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
 
                 if (ViewUtils.isInternetAvailable(mContext)) {
-                    MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
-                    FragmentManager fragmentManager = ((MoviesListActivity) mContext).
-                            getSupportFragmentManager();
 
-                    Bundle bundle = new Bundle();
-                    setBundleDetails(bundle, holder);
-                    movieDetailFragment.setArguments(bundle);
+                    openMovieDetailsActivity(holder);
 
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.moviesFrameLayout, movieDetailFragment,
-                            MoviesListActivity.MOVIE_DETAIL_FRAGMENT);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+//                    MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
+//                    FragmentManager fragmentManager = ((MoviesListActivity) mContext).
+//                            getSupportFragmentManager();
+//
+//                    Bundle bundle = new Bundle();
+//                    setBundleDetails(bundle, holder);
+//                    movieDetailFragment.setArguments(bundle);
+//
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.moviesFrameLayout, movieDetailFragment,
+//                            MoviesListActivity.MOVIE_DETAIL_FRAGMENT_TAG);
+////               fragmentTransaction.addToBackStack(MoviesListActivity.MOVIE_DETAIL_FRAGMENT_TAG);
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.commit();
                 }
                 else {
                     ViewUtils.createNoInternetDialog(mContext, R.string.network_error);
                 }
             }
         });
+    }
+
+    private void openMovieDetailsActivity(ViewHolder holder) {
+        Intent intent = new Intent(mContext, MovieDetailActivity.class);
+        Bundle bundle = new Bundle();
+        setBundleDetails(bundle, holder);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
     }
 
     private void setBundleDetails(Bundle bundle, ViewHolder holder) {
