@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,6 +13,8 @@ import com.tmdb.session.SessionManager;
 import com.tmdb.ui.mvp.login.LoginActivity;
 import com.tmdb.ui.mvp.moviespage.MoviesListActivity;
 import com.tmdb.utils.ViewUtils;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by Pranav Bhoraskar
@@ -28,11 +29,11 @@ public class LauncherActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        if (ViewUtils.isInternetAvailable(this)) {
+        if (ViewUtils.isInternetAvailable(getCurrentContext())) {
             getSessionDetails();
         }
         else {
-            ViewUtils.createNoInternetDialog(this, R.string.network_error);
+            ViewUtils.createNoInternetDialog(getCurrentContext(), R.string.network_error);
         }
     }
 
@@ -41,18 +42,30 @@ public class LauncherActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SessionManager sessionManager = new SessionManager(LauncherActivity.this);
+                SessionManager sessionManager = new SessionManager(getCurrentContext());
 
                 if (sessionManager.checkLogin()) {
-                    startActivity(new Intent(LauncherActivity.this, MoviesListActivity.class));
+                    navigateToMoviesListActivity();
                 }
                 else {
-                    startActivity(new Intent(LauncherActivity.this, LoginActivity.class));
+                    navigateToLoginActivity();
                 }
                 finish();
                 handler.removeCallbacks(this);
             }
         }, SPLASH_TIME);
+    }
+
+    private void navigateToLoginActivity() {
+        startActivity(new Intent(getCurrentContext(), LoginActivity.class));
+    }
+
+    private void navigateToMoviesListActivity() {
+        startActivity(new Intent(getCurrentContext(), MoviesListActivity.class));
+    }
+
+    private LauncherActivity getCurrentContext() {
+        return LauncherActivity.this;
     }
 
     @Override
