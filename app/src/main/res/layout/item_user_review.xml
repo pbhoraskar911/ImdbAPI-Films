@@ -5,26 +5,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="6dp"
     app:cardCornerRadius="3dp"
-    android:layout_margin="16dp"
-    app:contentPadding="16dp"
+    app:cardMaxElevation="4dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        >
 
         <TextView
             android:id="@+id/review_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:gravity="fill|center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="start|center_vertical"
             android:padding="6dp"
             android:scrollbars="vertical"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/colorWhite"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/review_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Review Author"
             />
@@ -33,13 +38,16 @@
             android:id="@+id/review_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="fill|center_vertical"
-            android:padding="6dp"
-            android:maxLines="5"
+            android:layout_margin="6dp"
             android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLines="5"
+            android:padding="6dp"
             android:scrollbars="vertical"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintBottom_toTopOf="@+id/review_button_url"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/review_author"
             app:layout_constraintTop_toBottomOf="@+id/review_author"
             tools:text="Review Content"
             />
@@ -49,15 +57,12 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
             android:text="@string/button_read_more"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/review_author"
             app:layout_constraintTop_toBottomOf="@+id/review_content"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.cardview.widget.CardView>

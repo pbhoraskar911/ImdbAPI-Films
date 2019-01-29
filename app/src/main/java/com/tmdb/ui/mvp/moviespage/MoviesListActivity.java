@@ -2,7 +2,6 @@ package com.tmdb.ui.mvp.moviespage;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -48,142 +47,79 @@ public class MoviesListActivity extends AppCompatActivity {
     }
 
     private void setUpMoviesFragment() {
-//        Fragment savedMoviesFragment = getSupportFragmentManager()
-//                .findFragmentByTag(MOVIES_FRAGMENT_TAG);
         final Bundle bundle = new Bundle();
-//
-//        if (savedMoviesFragment == null) {
-//
-        fragment = new MoviesFragment();
-        bundle.putString("tag", RELEASE_DATE_TAB);
-        fragment.setArguments(bundle);
-//
-//            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-//                    .beginTransaction();
-//            fragmentTransaction.add(R.id.moviesFrameLayout, fragment, RELEASE_DATE_TAB).commit();
-//        }
-
+        if (getSupportFragmentManager().findFragmentByTag(MOVIES_FRAGMENT_TAG) == null) {
+            fragment = new MoviesFragment();
+            bundle.putString("tag", RELEASE_DATE_TAB);
+            fragment.setArguments(bundle);
+        }
         replaceFragment(R.id.moviesFrameLayout, fragment, MOVIES_FRAGMENT_TAG);
 
 
         bottomNavigation.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.bn_movie_latest:
-//                                fragment = getSupportFragmentManager()
-//                                        .findFragmentByTag(RELEASE_DATE_TAB);
-//                                if (fragment == null) {
-//                                    fragment = MoviesFragment.newInstance();
-//                                    bundle.putString("tag", RELEASE_DATE_TAB);
-//                                    fragment.setArguments(bundle);
-//                                }
-//                                FragmentTransaction transaction = getSupportFragmentManager()
-//                                        .beginTransaction();
-//                                transaction
-//                              .replace(R.id.moviesFrameLayout, fragment, RELEASE_DATE_TAB)
-//                                        .commit();
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.bn_movie_latest:
+                            if (fragment != null) {
+                                clearBackStack(null);
+                            }
+                            fragment = MoviesFragment.newInstance();
+                            bundle.putString("tag", RELEASE_DATE_TAB);
+                            fragment.setArguments(bundle);
 
-                                if (fragment != null) {
-                                    getSupportFragmentManager().popBackStack(null,
-                                            FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                                }
-                                fragment = MoviesFragment.newInstance();
-                                bundle.putString("tag", RELEASE_DATE_TAB);
-                                fragment.setArguments(bundle);
+                            if (selectedTab != RELEASE_DATE_TAB) {
+                                selectedTab = RELEASE_DATE_TAB;
+                                changeFragment(fragment, MOVIES_FRAGMENT_TAG);
+                            }
+                            break;
+                        case R.id.bn_movie_popular:
+                            if (fragment != null) {
+                                clearBackStack(null);
+                            }
 
-                                if (selectedTab != RELEASE_DATE_TAB) {
-                                    selectedTab = RELEASE_DATE_TAB;
+                            fragment = MoviesFragment.newInstance();
+                            bundle.putString("tag", POPULAR_TAB);
+                            fragment.setArguments(bundle);
 
-                                    changeFragment(fragment, MOVIES_FRAGMENT_TAG);
-                                }
-                                break;
-                            case R.id.bn_movie_popular:
-//                                fragment = getSupportFragmentManager()
-//                                        .findFragmentByTag(POPULAR_TAB);
-//                                if (fragment == null) {
-//
-//                                    fragment = MoviesFragment.newInstance();
-//                                    bundle.putString("tag", POPULAR_TAB);
-//                                    fragment.setArguments(bundle);
-//                                }
-//                                getSupportFragmentManager().beginTransaction()
-//                                        .replace(R.id.moviesFrameLayout, fragment, POPULAR_TAB)
-//                                        .commit();
+                            if (selectedTab != POPULAR_TAB) {
+                                selectedTab = POPULAR_TAB;
+                                replaceFragment(R.id.moviesFrameLayout, fragment);
+                            }
+                            break;
+                        case R.id.bn_movie_vote_count:
+                            if (fragment != null) {
+                                clearBackStack(null);
+                            }
 
-                                if (fragment != null) {
-                                    getSupportFragmentManager().popBackStack(null,
-                                            FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                                }
+                            fragment = MoviesFragment.newInstance();
+                            bundle.putString("tag", VOTE_COUNT_TAB);
+                            fragment.setArguments(bundle);
 
-                                fragment = MoviesFragment.newInstance();
-                                bundle.putString("tag", POPULAR_TAB);
-                                fragment.setArguments(bundle);
+                            if (selectedTab != VOTE_COUNT_TAB) {
+                                selectedTab = VOTE_COUNT_TAB;
+                                replaceFragment(R.id.moviesFrameLayout, fragment);
+                            }
+                            break;
+                        case R.id.bn_movie_favorites:
+                            if (fragment != null) {
+                                clearBackStack(null);
+                            }
+                            fragment = MoviesFragment.newInstance();
+                            bundle.putString("tag", FAVORITE_TAB);
+                            fragment.setArguments(bundle);
 
-                                if (selectedTab != POPULAR_TAB) {
-                                    selectedTab = POPULAR_TAB;
-
-                                    replaceFragment(R.id.moviesFrameLayout, fragment);
-                                }
-                                break;
-                            case R.id.bn_movie_vote_count:
-//                                fragment = getSupportFragmentManager()
-//                                        .findFragmentByTag(VOTE_COUNT_TAB);
-//                                if (fragment == null) {
-//                                    fragment = MoviesFragment.newInstance();
-//                                    bundle.putString("tag", VOTE_COUNT_TAB);
-//                                    fragment.setArguments(bundle);
-//                                }
-//                                getSupportFragmentManager().beginTransaction()
-//                                        .replace(R.id.moviesFrameLayout, fragment, VOTE_COUNT_TAB)
-//                                        .commit();
-
-                                if (fragment != null) {
-                                    getSupportFragmentManager().popBackStack(null,
-                                            FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                                }
-
-                                fragment = MoviesFragment.newInstance();
-                                bundle.putString("tag", VOTE_COUNT_TAB);
-                                fragment.setArguments(bundle);
-
-                                if (selectedTab != VOTE_COUNT_TAB) {
-                                    selectedTab = VOTE_COUNT_TAB;
-
-                                    replaceFragment(R.id.moviesFrameLayout, fragment);
-                                }
-                                break;
-                            case R.id.bn_movie_favorites:
-//                                fragment = getSupportFragmentManager()
-//                                        .findFragmentByTag(FAVORITE_TAB);
-//                                if (fragment == null) {
-//                                    fragment = MoviesFragment.newInstance();
-//                                    bundle.putString("tag", FAVORITE_TAB);
-//                                    fragment.setArguments(bundle);
-//
-//                                }
-//                                getSupportFragmentManager().beginTransaction()
-//                                        .replace(R.id.moviesFrameLayout, fragment, FAVORITE_TAB)
-//                                        .commit();
-
-                                if (fragment != null) {
-                                    getSupportFragmentManager().popBackStack(null,
-                                            FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                                }
-                                fragment = MoviesFragment.newInstance();
-                                bundle.putString("tag", FAVORITE_TAB);
-                                fragment.setArguments(bundle);
-
-                                if (selectedTab != FAVORITE_TAB) {
-                                    selectedTab = FAVORITE_TAB;
-
-                                    replaceFragment(R.id.moviesFrameLayout, fragment);
-                                }
-                        }
-                        return true;
+                            if (selectedTab != FAVORITE_TAB) {
+                                selectedTab = FAVORITE_TAB;
+                                replaceFragment(R.id.moviesFrameLayout, fragment);
+                            }
                     }
+                    return true;
                 });
+    }
+
+    private void clearBackStack(String str) {
+        getSupportFragmentManager().popBackStack(str,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     private void changeFragment(Fragment fragment, String tag) {
@@ -211,37 +147,24 @@ public class MoviesListActivity extends AppCompatActivity {
         return getSupportFragmentManager().findFragmentByTag(tag);
     }
 
-    private void clearBackStack() {
+    private void clearBackStackWithTag() {
         selectedTab = "";
-        getSupportFragmentManager().popBackStack(MOVIES_FRAGMENT_TAG,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        clearBackStack(MOVIES_FRAGMENT_TAG);
     }
 
     @Override
     public void onBackPressed() {
         try {
 //            super.onBackPressed();
-//            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-//                System.out.println("Popping backstack on backpressed... " +
-//                        getSupportFragmentManager().getBackStackEntryCount());
-//                getSupportFragmentManager().popBackStack();
-//            }
-//            else {
-//                System.out.println("in onbackpressed... empty backstack... " +
-//                        getSupportFragmentManager().getBackStackEntryCount());
-//            }
-
 
             int count = getSupportFragmentManager().getBackStackEntryCount();
             if (count == 0) {
-                super.onBackPressed();
                 createCloseAppDialog(getCurrentContext(), getString(R.string.dialog_exit_title),
                         getString(R.string.dialog_exit_app));
             }
             else {
-                clearBackStack();
+                clearBackStackWithTag();
             }
-
         }
         catch (IllegalStateException e) {
             supportFinishAfterTransition();
@@ -252,28 +175,19 @@ public class MoviesListActivity extends AppCompatActivity {
         return MoviesListActivity.this;
     }
 
-    public static void createCloseAppDialog(final Context context, String title,
-                                            final String content) {
+    public void createCloseAppDialog(final Context context, String title,
+                                     final String content) {
         new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
                 .cancelable(false)
                 .positiveText(R.string.exit)
                 .negativeText(R.string.dismiss)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog,
-                                        @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
+                .onPositive((dialog, which) -> {
+                    dialog.dismiss();
+                    finish();
                 })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog,
-                                        @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                })
+                .onNegative((dialog, which) -> dialog.dismiss())
                 .show();
     }
 

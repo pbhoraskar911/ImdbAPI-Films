@@ -2,7 +2,6 @@ package com.tmdb.ui.mvp.userreviews;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,10 @@ import com.tmdb.R;
 import com.tmdb.model.userreviews.UserReviewsResult;
 import com.tmdb.ui.mvp.webviewpage.WebViewActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,12 +27,12 @@ public class UserReviewAdapter extends RecyclerView.Adapter<UserReviewAdapter.Vi
 
     private List<UserReviewsResult> userReviewsList;
     private Context context;
+    private String movieTitle;
 
-    public UserReviewAdapter() {
-    }
-
-    public UserReviewAdapter(Context context, List<UserReviewsResult> userReviewsResults) {
+    public UserReviewAdapter(Context context, String movieTitle,
+                             ArrayList<UserReviewsResult> userReviewsResults) {
         this.context = context;
+        this.movieTitle = movieTitle;
         userReviewsList = userReviewsResults;
     }
 
@@ -76,13 +77,11 @@ public class UserReviewAdapter extends RecyclerView.Adapter<UserReviewAdapter.Vi
         public void bindData(final UserReviewsResult userReviewsResult) {
             reviewAuthor.setText(userReviewsResult.getAuthor());
             reviewContent.setText(userReviewsResult.getContent());
-            reviewButtonUrl.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, WebViewActivity.class);
-                    intent.putExtra(context.getString(R.string.url), userReviewsResult.getUrl());
-                    context.startActivity(intent);
-                }
+            reviewButtonUrl.setOnClickListener(view -> {
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra(context.getString(R.string.url), userReviewsResult.getUrl());
+                intent.putExtra(context.getString(R.string.movie_title), movieTitle);
+                context.startActivity(intent);
             });
         }
     }

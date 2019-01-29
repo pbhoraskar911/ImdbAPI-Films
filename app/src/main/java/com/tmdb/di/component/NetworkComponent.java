@@ -7,7 +7,7 @@ import com.tmdb.ui.mvp.login.LoginActivity;
 import com.tmdb.ui.mvp.moviedetail.MovieDetailActivity;
 import com.tmdb.ui.mvp.moviedetail.MovieDetailFragment;
 import com.tmdb.ui.mvp.moviespage.MoviesFragment;
-import com.tmdb.ui.mvp.userreviews.UserReviewFragment;
+import com.tmdb.ui.mvp.userreviews.UserReviewActivity;
 
 import javax.inject.Singleton;
 
@@ -29,7 +29,7 @@ public interface NetworkComponent {
 
     void injectLauncher(LoginActivity loginActivity);
 
-    void injectUserReviews(UserReviewFragment userReviewFragment);
-
     void injectMovieDetailsActivity(MovieDetailActivity movieDetailActivity);
+
+    void injectUserReviewsActivity(UserReviewActivity userReviewActivity);
 }

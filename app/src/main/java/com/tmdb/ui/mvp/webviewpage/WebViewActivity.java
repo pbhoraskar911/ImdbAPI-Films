@@ -32,6 +32,7 @@ public class WebViewActivity extends AppCompatActivity {
     ProgressBar progressBarWebview;
 
     private String pageUrl;
+    private String pageTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         if (getIntent() != null) {
             pageUrl = getIntent().getStringExtra(getString(R.string.url));
+            pageTitle = getIntent().getStringExtra(getString(R.string.movie_title));
             openWebPage(pageUrl);
         }
     }

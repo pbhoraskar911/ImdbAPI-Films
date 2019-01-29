@@ -19,7 +19,7 @@ import com.tmdb.model.MovieDetailResponse;
 import com.tmdb.model.videos.VideoResponse;
 import com.tmdb.model.videos.VideoResult;
 import com.tmdb.ui.mvp.moviespage.RecyclerAdapter;
-import com.tmdb.ui.mvp.userreviews.UserReviewFragment;
+import com.tmdb.ui.mvp.userreviews.UserReviewActivity;
 import com.tmdb.ui.mvp.webviewpage.WebViewActivity;
 import com.tmdb.utils.ViewUtils;
 
@@ -208,7 +208,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                 break;
             case R.id.button_reviews:
                 if (ViewUtils.isInternetAvailable(getContext())) {
-                    navigateToUserFragment(movieId);
+                    navigateToUserReviewActivity(movieId);
                 }
                 else {
                     ViewUtils.createNoInternetDialog(getContext(), R.string.network_error);
@@ -217,17 +217,26 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         }
     }
 
-    private void navigateToUserFragment(String movieId) {
-        UserReviewFragment userReviewFragment = UserReviewFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.moviesFrameLayout, userReviewFragment)
-                .addToBackStack(null)
-                .commit();
+//    private void navigateToUserFragment(String movieId) {
+//        UserReviewFragment userReviewFragment = UserReviewFragment.newInstance();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.moviesFrameLayout, userReviewFragment)
+//                .addToBackStack(null)
+//                .commit();
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putString(RecyclerAdapter.MOVIE_ID, movieId);
+//        userReviewFragment.setArguments(bundle);
+//    }
 
+    private void navigateToUserReviewActivity(String movieId) {
+        Intent intent = UserReviewActivity.newInstance(getContext());
         Bundle bundle = new Bundle();
         bundle.putString(RecyclerAdapter.MOVIE_ID, movieId);
-        userReviewFragment.setArguments(bundle);
+        bundle.putString(RecyclerAdapter.MOVIE_TITLE, movieTitle);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override

@@ -47,5 +47,6 @@
     <string name="exit">Exit</string>
     <string name="dialog_exit_title">Exit?</string>
     <string name="dialog_exit_app">Do you want to Exit the app?</string>
+    <string name="movie_title">movie_title</string>
 
 </resources>

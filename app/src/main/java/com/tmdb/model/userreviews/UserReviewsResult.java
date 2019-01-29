@@ -80,15 +80,16 @@ public class UserReviewsResult implements Parcelable {
         this.url = in.readString();
     }
 
-    public static final Parcelable.Creator<UserReviewsResult> CREATOR = new Parcelable.Creator<UserReviewsResult>() {
-        @Override
-        public UserReviewsResult createFromParcel(Parcel source) {
-            return new UserReviewsResult(source);
-        }
+    public static final Parcelable.Creator<UserReviewsResult> CREATOR =
+            new Parcelable.Creator<UserReviewsResult>() {
+                @Override
+                public UserReviewsResult createFromParcel(Parcel source) {
+                    return new UserReviewsResult(source);
+                }
 
-        @Override
-        public UserReviewsResult[] newArray(int size) {
-            return new UserReviewsResult[size];
-        }
-    };
+                @Override
+                public UserReviewsResult[] newArray(int size) {
+                    return new UserReviewsResult[size];
+                }
+            };
 }

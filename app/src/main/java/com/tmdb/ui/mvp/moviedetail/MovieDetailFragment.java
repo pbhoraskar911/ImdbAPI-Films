@@ -3,10 +3,6 @@ package com.tmdb.ui.mvp.moviedetail;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +24,7 @@ import com.tmdb.model.MovieDetailResponse;
 import com.tmdb.model.videos.VideoResponse;
 import com.tmdb.model.videos.VideoResult;
 import com.tmdb.ui.mvp.moviespage.RecyclerAdapter;
-import com.tmdb.ui.mvp.userreviews.UserReviewFragment;
+import com.tmdb.ui.mvp.userreviews.UserReviewActivity;
 import com.tmdb.ui.mvp.webviewpage.WebViewActivity;
 import com.tmdb.utils.ViewUtils;
 
@@ -37,6 +33,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -247,7 +247,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailsView {
     }
 
     private void saveFavoriteMoviesDetails() {
-        
+
     }
 
     @Override
@@ -292,26 +292,21 @@ public class MovieDetailFragment extends Fragment implements MovieDetailsView {
                 movieDetailPresenter.makeMovieHomePageCall(movieHomePage);
                 break;
             case R.id.button_reviews:
-                if (ViewUtils.isInternetAvailable(getActivity())) {
-                    navigateToUserFragment(movieId);
-                }
-                else {
-                    ViewUtils.createNoInternetDialog(getActivity(), R.string.network_error);
-                }
+//                if (ViewUtils.isInternetAvailable(getActivity())) {
+//                    navigateToUserReviewActivity(movieId);
+//                }
+//                else {
+//                    ViewUtils.createNoInternetDialog(getActivity(), R.string.network_error);
+//                }
                 break;
         }
     }
 
-    private void navigateToUserFragment(String movieId) {
-        UserReviewFragment userReviewFragment = UserReviewFragment.newInstance();
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.moviesFrameLayout, userReviewFragment)
-                .addToBackStack(null)
-                .commit();
-
+    private void navigateToUserReviewActivity(String movieId) {
+        Intent intent = UserReviewActivity.newInstance(getContext());
         Bundle bundle = new Bundle();
         bundle.putString(RecyclerAdapter.MOVIE_ID, movieId);
-        userReviewFragment.setArguments(bundle);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
