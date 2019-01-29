@@ -231,11 +231,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     }
 
     @Override
-    public void showErrorDialog() {
-
-    }
-
-    @Override
     public Context getContext() {
         return MovieDetailActivity.this;
     }
@@ -256,5 +251,10 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         if (materialDialog != null && materialDialog.isShowing()) {
             materialDialog.dismiss();
         }
+    }
+
+    @Override
+    public void showErrorDialog() {
+
     }
 }
