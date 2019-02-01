@@ -3,12 +3,10 @@ package com.tmdb.ui.mvp.moviespage;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tmdb.R;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -155,8 +153,6 @@ public class MoviesListActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         try {
-//            super.onBackPressed();
-
             int count = getSupportFragmentManager().getBackStackEntryCount();
             if (count == 0) {
                 createCloseAppDialog(getCurrentContext(), getString(R.string.dialog_exit_title),

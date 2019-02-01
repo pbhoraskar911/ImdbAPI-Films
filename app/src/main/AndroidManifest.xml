@@ -10,7 +10,7 @@
         android:name=".di.TmdbApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -41,9 +41,6 @@
             android:name=".ui.mvp.webviewpage.WebViewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.mvp.moviedetail.MovieDetailActivity"/>-->
         </activity>
 
 
@@ -59,9 +56,6 @@
         <activity
             android:name=".ui.mvp.userreviews.UserReviewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.mvp.moviedetail.MovieDetailActivity"/>-->
         </activity>
 
         <activity android:name=".ui.mvp.splashscreen.SplashScreenActivity"/>
