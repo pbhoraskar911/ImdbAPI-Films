@@ -50,8 +50,8 @@ public class MoviesListActivity extends AppCompatActivity {
             fragment = new MoviesFragment();
             bundle.putString("tag", RELEASE_DATE_TAB);
             fragment.setArguments(bundle);
+            addFragment(R.id.moviesFrameLayout, fragment, MOVIES_FRAGMENT_TAG);
         }
-        replaceFragment(R.id.moviesFrameLayout, fragment, MOVIES_FRAGMENT_TAG);
 
 
         bottomNavigation.setOnNavigationItemSelectedListener(
@@ -67,7 +67,7 @@ public class MoviesListActivity extends AppCompatActivity {
 
                             if (selectedTab != RELEASE_DATE_TAB) {
                                 selectedTab = RELEASE_DATE_TAB;
-                                changeFragment(fragment, MOVIES_FRAGMENT_TAG);
+                                replaceFragment(R.id.moviesFrameLayout, fragment);
                             }
                             break;
                         case R.id.bn_movie_popular:
@@ -113,6 +113,10 @@ public class MoviesListActivity extends AppCompatActivity {
                     }
                     return true;
                 });
+    }
+
+    private void addFragment(int where, Fragment fragment, String tag) {
+        getSupportFragmentManager().beginTransaction().add(where, fragment, tag).commit();
     }
 
     private void clearBackStack(String str) {
