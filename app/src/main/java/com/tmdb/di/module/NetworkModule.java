@@ -29,6 +29,12 @@ public class NetworkModule {
         this.baseUrl = baseUrl;
     }
 
+
+    /**
+     * Method provides retrofit instance got Dagger graph.
+     * @param gsonConverterFactory
+     * @return
+     */
     @Provides
     @Singleton
     Retrofit provideRetrofitConnection(GsonConverterFactory gsonConverterFactory) {
