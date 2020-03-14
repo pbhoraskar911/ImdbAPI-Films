@@ -29,6 +29,12 @@ public class NetworkModule {
         this.baseUrl = baseUrl;
     }
 
+
+    /**
+     * Method provides retrofit instance got Dagger graph.
+     * @param gsonConverterFactory
+     * @return
+     */
     @Provides
     @Singleton
     Retrofit provideRetrofitConnection(GsonConverterFactory gsonConverterFactory) {
@@ -39,6 +45,10 @@ public class NetworkModule {
                 .build();
     }
 
+    /**
+     * Method to return OkHttpClient
+     * @return
+     */
     private OkHttpClient getOkHttpClient() {
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
