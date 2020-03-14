@@ -39,6 +39,10 @@ public class NetworkModule {
                 .build();
     }
 
+    /**
+     * Method to return OkHttpClient
+     * @return
+     */
     private OkHttpClient getOkHttpClient() {
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
